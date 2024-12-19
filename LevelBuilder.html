@@ -1,1 +1,141 @@
+<!DOCTYPE html>
 
+<html>
+
+<body>
+    <style>
+        body {
+            text-align: left;
+            background-color: white;
+            color: lime;
+        }
+
+        .gameArea {
+            text-align: center;
+            height: 400px;
+            width: 400px;
+            border: 5px solid lime;
+            margin-left: 50px;
+        }
+
+        .tiles {
+            height: 5px;
+            width: 5px;
+            background-color: black;
+        }
+    </style>
+    <h1>Level Builder!</h1>
+    <div class="gameArea" id="gameAREA" onmouseleave="lose()">
+        <div id="add"></div>
+    </div>
+    <script>
+        let grid = [];
+        let deaths = 0;
+        let active = false;
+        let rock = false;
+        function createWorld() { // creates physical DOM grid
+            for (let z = 0; z < 80; z++) {
+                let newYarr = [];
+                let miniDiv = document.createElement('div');
+                miniDiv.style = "display:inline-block";
+                for (let i = 0; i < 80; i++) {
+                    let tile = document.createElement('div');
+                    tile.classList = "tiles";
+                    tile.onmouseup = function(){giveCoords(z, i)};
+                    this.newObj = {};
+                    this.newObj.block = tile;
+                    newYarr.push(this.newObj);
+                    miniDiv.appendChild(tile);
+                }
+                grid.push(newYarr);
+                document.getElementById('add').appendChild(miniDiv);
+            }
+        }
+        createWorld();
+		function nothing(){
+        };
+        
+        function giveCoords(x, y){
+        alert("X: " + x + " Y: " + y);
+        }
+
+        function wall(x, y) { // Creates a wall at the designated square
+            grid[x][y].block.style.background = "lime";
+        }
+        
+        function fakewall(x, y) { // Creates a FAKE wall at the designated square
+            grid[x][y].block.style.background = "greenyellow";
+        }
+        
+        function winWall(x, y) { // Creates a WIN wall at the designated square
+            grid[x][y].block.style.background = "yellow";
+        }
+
+        function horLine(start, finish, Y) { //Builds a horizontal line based on input coords
+            for (let i = start; i < finish; i++) {
+                wall(i, Y);
+            }
+
+        };
+        function vertLine(start, finish, X) { //Builds a vertical line based on input coords
+            for (let i = start; i < finish; i++) {
+                wall(X, i);
+            }
+        }
+        
+        function fakeHorLine(start, finish, Y) { //Builds a FAKE horizontal line based on input coords
+            for (let i = start; i < finish; i++) {
+                fakewall(i, Y);
+            }
+
+        };
+        function fakeVertLine(start, finish, X) { //Builds a FAKE vertical line based on input coords
+            for (let i = start; i < finish; i++) {
+                fakewall(X, i);
+            }
+        }
+        
+        function cube(startX, startY, endX, endY){
+        for (let z = startX; z < endX; z++) {
+        for (let i = startY; i < endY; i++) {
+              wall(z, i);
+                }}};
+                
+        function winCube(startX, startY, endX, endY){
+        for (let z = startX; z < endX; z++) {
+        for (let i = startY; i < endY; i++) {
+              winWall(z, i);
+                }}};
+        
+            function level(name) { // Create a level object for storage in level catalog later! Easily add line objects to build the level
+                this.lineArr = [];
+                this.name = name;
+                level.prototype.newLine = function (LINE) {
+                    this.lineArr.push(LINE);
+                }
+
+            }
+        function line(start, end, xORy, isVert){ //creates a new line object to be shoved in a level object!
+        this.start = start;
+        this.finish = end;
+        this.vertical = isVert;
+        this.extra = xORy;
+        };
+        
+        function buildLevel(InputLevel){ //Turns the info from the level() object into the physical DOM maze
+        for(let i = 0; i < inputLevel.lineArr.length; i++){
+        let theLine = inputLevel.lineArr[i];
+        if(theLine.isVert == true){
+        vertLine(theLine.start, theLine.finish, theLine.extra);
+        }else{
+        horLine(theLine.start, theLine.finish, theLine.extra); 
+        }
+        }
+        }
+
+        function level1(){
+        
+        };
+        level1();
+    </script>
+</html>

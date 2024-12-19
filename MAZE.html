@@ -167,7 +167,7 @@
         document.getElementById('add').style.display = "block";
         document.getElementById('startScreen').style.display = "none";
         active = true;
-        //loop();
+        loop();
         }
         function lose() {
             if(active == true){
@@ -187,7 +187,7 @@
         }
         }
         function level1(){
-        horLine(28, 53, 70); // start: 28, 70 finish: 53, 70
+            horLine(28, 53, 70); // start: 28, 70 finish: 53, 70
         vertLine(59, 70, 28); // start 28, 59 finish 28, 70
         vertLine(59, 70, 52);  // start 52, 59 finish 52, 70
         horLine(28, 37, 59);
@@ -208,6 +208,17 @@
         vertLine(60, 79, 64);
         vertLine(40, 60, 64);
         cube(48, 30, 61, 56);
+        horLine(0, 80, 79);
+        horLine(65, 80, 30);
+        vertLine(31, 76, 68);
+        vertLine(34, 80, 72);
+        vertLine(31, 76, 76);
+        cube(3, 30, 20, 50);
+        cube(0, 0, 2, 79);
+        cube(2, 0, 80, 30);
+        cube(29, 37, 36, 59);
+        cube(11, 59, 28, 71);
+        winCube(77, 31, 80, 34);
         };
         level1();
     </script>
