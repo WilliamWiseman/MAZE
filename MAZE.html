@@ -31,19 +31,54 @@
         font-weight:bolder;
         margin-top:320px;
         }
+        .leftAndRight{
+        border: 0px solid transparent;
+        background: transparent;
+        color:white;
+        font-size:70px;
+        display:inline-block;
+        vertical-align:middle;
+        }
+        .levelDISP{
+        display:inline-block;
+        height:130px;
+        width:300px;
+        border:5px solid white;
+        border-radius:20px;
+        font-family:mono;
+        color:white;
+        margin:10px;
+        font-weight:bolder;
+        font-size:30px;
+        vertical-align:middle;
+        background:transparent;
+        }
+        
     </style>
-    <h1>MAZE</h1><p>Deaths: <span id="dC">0</span></p><br><br>
+    <div id="MainMenu">
+    <h1>MAZE</h1><br><br><br>
+    <button class="leftAndRight" onclick="alert('works')">◀</button>
+    <button class="levelDISP" id="thing" onclick="game()">error:levelName not found</button>
+    <button class="leftAndRight" onclick="alert('works')">▶</button>
+    </div>
+    <div id="game" style="display:none">
+    <h1>MAZE</h1>
+    <p>Deaths: <span id="dC">0</span></p><br><br>
     <div class="gameArea" id="gameAREA" onmouseleave="lose()">
         <div id="add"  style="display:none"></div>
         <div id="startScreen">
         <button class="startBTN" onclick="start()"> /:start:/ </button>
         </div>
     </div>
+    </div>
     <script>
         let grid = [];
         let deaths = 0;
         let active = false;
         let rock = false;
+        let LEVELS = [];
+        let currentLVL = 0;
+        
         function createWorld() { // creates physical DOM grid
             for (let z = 0; z < 80; z++) {
                 let newYarr = [];
@@ -168,6 +203,7 @@
         document.getElementById('startScreen').style.display = "none";
         active = true;
         loop();
+        
         }
         function lose() {
             if(active == true){
@@ -220,6 +256,34 @@
         cube(11, 59, 28, 71);
         winCube(77, 31, 80, 34);
         };
-        level1();
+        function newLevel(name, func){
+        this.name = name;
+        newLevel.prototype.create = function() {
+        func();
+        }
+        newLevel.prototype.load = function() {
+        document.getElementById('thing').innerText = this.name;
+        }
+        }
+        LEVELS.push(new newLevel("GAUNTLET", level1));
+        LEVELS[0].load();
+        function game(){
+        document.getElementById('MainMenu').style.display = "none";
+        document.getElementById('game').style.display = "block";
+        LEVELS[currentLVL].create();
+        };
+        //function change(cond){
+        //if(cond == true){
+        //currentLVL++;
+        //if(currentLVL == LEVELS.length){
+        //currentLVL = 0;
+        //}
+        //}else{
+        //currentLVL--;
+        //if(currentLVL == -1){
+        //currentLVL = LEVELS.length - 1;
+        //}
+        //LEVELS[currentLVL].load();
+        //}
     </script>
 </html>
